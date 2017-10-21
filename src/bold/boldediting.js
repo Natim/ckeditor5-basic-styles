@@ -4,15 +4,13 @@
  */
 
 /**
- * @module basic-styles/boldengine
+ * @module basic-styles/bold/boldediting
  */
 
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import buildModelConverter from '@ckeditor/ckeditor5-engine/src/conversion/buildmodelconverter';
 import buildViewConverter from '@ckeditor/ckeditor5-engine/src/conversion/buildviewconverter';
-import AttributeCommand from './attributecommand';
-
-export const keystroke = 'CTRL+B';
+import AttributeCommand from '../attributecommand';
 
 /**
  * The bold feature editing part:
@@ -37,7 +35,7 @@ export default class BoldEditing extends Plugin {
 		this._initEngine();
 
 		// Initialize keystroke.
-		this.editor.keystrokes.set( keystroke, 'bold' );
+		this.editor.keystrokes.set( 'CTRL+B', 'bold' );
 	}
 
 	/**
@@ -59,8 +57,7 @@ export default class BoldEditing extends Plugin {
 		editor.document.schema.allow( { name: '$inline', attributes: 'bold', inside: '$clipboardHolder' } );
 
 		// Create bold command.
-		editor.commands.add( BOLD, new AttributeCommand( editor, 'bold' ) );
-
+		editor.commands.add( 'bold', new AttributeCommand( editor, 'bold' ) );
 
 		// Build converter from model to view for data and editing pipelines.
 		buildModelConverter().for( data.modelToView, editing.modelToView )
